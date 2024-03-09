@@ -31,7 +31,7 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
     const { id } = req.params;
-    const user = await User.findOne({ _id: id });
+    const user = await User.findOne({ _id: id }).populate("favorites");
     try {
 
         if (!user) {
