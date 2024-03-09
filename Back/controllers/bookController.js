@@ -78,7 +78,8 @@ const getBookById = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             mensaje: "Hubo un error, intente más tarde",
-            status: 500
+            status: 500,
+            error: error.message
         })
     }
 }
@@ -93,7 +94,7 @@ const updateBook = async (req, res) => {
                 status: 400
             })
         }
-        const alumno = await Alumno.findByIdAndUpdate(id, {
+        const book = await Book.findByIdAndUpdate(id, {
             ...req.body,
             title,
             autor, 
@@ -109,11 +110,41 @@ const updateBook = async (req, res) => {
         return res.status(500).json({
             mensaje: "Hubo un error, intente más tarde",
             status: 500,
+            error: error.message
         })
+    }
+}
+
+const deleteBook = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const book = await Book.findById(id);
+        if (!book) {
+            return res.status(404).json({
+                mensaje: 'El libro no se encuentra cargado',
+                status: 404
+            });
+        }
+        const publicId = book.img.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(publicId);
+        await book.deleteOne();
+        return res.status(200).json({
+            mensaje: 'Libro eliminado correctamente',
+            status: 200
+        });
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: 'Hubo un error, intente más tarde',
+            status: 500,
+            error: error.message
+        });
     }
 }
 
 module.exports = {
     getAllBooks,
-    getBookById
+    getBookById,
+    createBook,
+    updateBook,
+    deleteBook
 }

@@ -6,9 +6,7 @@ const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 
 const getAllUsers = async (req, res) => {
-
     const users = await User.find()
-
     try {
         if (!users) {
             return res.status(404).json({
@@ -25,7 +23,8 @@ const getAllUsers = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             mensaje: "Hubo un error, intente más tarde",
-            status: 500
+            status: 500,
+            error: error.message
         })
     }
 }
@@ -51,16 +50,14 @@ const getUserById = async (req, res) => {
         return res.status(500).json({
             mensaje: "Hubo un error, intente más tarde",
             status: 500,
+            error: error.message
         });
     }
 };
 
 const register = async (req, res) => {
-
     const { name, lastname, password, email } = req.body;
-
     const user = await User.findOne({ email });
-
     try {
         if (user) {
             return res.status(400).json({
@@ -84,17 +81,15 @@ const register = async (req, res) => {
         return res.status(500).json({
             mensaje: "Hubo un error, intente más tarde.",
             status: 500,
-            error
+            error: error.message
         })
     }
 }
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-
     const user = await User.findOne({ email });
     const secret = process.env.JWT_SECRET;
-
     try {
         if (!user) {
             return res.status(404).json({
@@ -127,10 +122,10 @@ const login = async (req, res) => {
             token
         })
     } catch (error) {
-       
         return res.status(500).json({
             mensaje: "Hubo un error, intente más tarde",
-            status: 500
+            status: 500,
+            error: error.message
         })
     }
 }
@@ -171,7 +166,6 @@ const recoverPass = async (req, res) => {
           return res.send({Status: "Success"})
         }
       });
-
 }
 
 const resetPass = async (req, res) => {
