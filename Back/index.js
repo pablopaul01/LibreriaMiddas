@@ -5,7 +5,8 @@ const morgan = require("morgan");
 const dbConnection = require("./database/db");
 const router = require("./routes");
 const cloudinary = require("cloudinary").v2;
-
+const jwtStrategy = require("./passport/jwt");
+const passport = require("passport");
 
 const app = express();
 
@@ -21,6 +22,8 @@ cloudinary.config({
     api_secret: process.env.API_SECRET 
   });
 
+  //passport
+passport.use("jwt", jwtStrategy);
 
 //configuracion de rutas
 app.use("/", router);
