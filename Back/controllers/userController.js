@@ -56,7 +56,7 @@ const getUserById = async (req, res) => {
 };
 
 const register = async (req, res) => {
-    const { name, lastname, password, email } = req.body;
+    const { name, lastname, email, password } = req.body;
     const user = await User.findOne({ email });
     try {
         if (user) {

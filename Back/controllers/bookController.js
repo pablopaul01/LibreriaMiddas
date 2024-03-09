@@ -1,4 +1,5 @@
 const Book = require("../models/bookSchema");
+const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2
 
 const createBook = async (req, res) => {
@@ -105,6 +106,7 @@ const updateBook = async (req, res) => {
         return res.status(200).json({
             mensaje: "Libro modificado correctamente",
             status: 200,
+            book
         })
     } catch (error) {
         return res.status(500).json({

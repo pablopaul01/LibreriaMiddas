@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const upload = require("../middleware/multer");
+const upload = require("../middlewares/multer");
 const { createBook, getAllBooks, getBookById, updateBook, deleteBook } = require("../controllers/bookController");
 const { register, getAllUsers, getUserById, login, recoverPass, resetPass } = require("../controllers/userController");
 
