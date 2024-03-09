@@ -89,37 +89,6 @@ const register = async (req, res) => {
     }
 }
 
-const deleteUser = async (req, res) => {
-    const { id } = req.params;
-    const user = await User.findByIdAndDelete(id);
-
-    try {
-        if (!mongoose.isValidObjectId(id)) {
-            return res.status(400).json({
-                mensaje: "Id del usuario no válido",
-                status: 400
-            })
-        }
-        if (!user) {
-            return res.status(404).json({
-                mensaje: "Usuario no encontrado",
-                status: 404
-            })
-        }
-        return res.status(200).json({
-            mensaje: "Usuario eliminado correctamente",
-            status: 200,
-            user
-        })
-
-    } catch (error) {
-        return res.status(500).json({
-            mensaje: "Hubo un error, intente más tarde",
-            status: 500,
-        })
-    }
-}
-
 const login = async (req, res) => {
     const { email, password } = req.body;
 
@@ -162,80 +131,6 @@ const login = async (req, res) => {
         return res.status(500).json({
             mensaje: "Hubo un error, intente más tarde",
             status: 500
-        })
-    }
-}
-
-
-const userUpdate = async (req, res) => {
-    const { id } = req.params;
-    const { name, lastname, password } = req.body
-    const secret = process.env.JWT_SECRET;
-
-    try {
-        if (!mongoose.isValidObjectId(id)) {
-            return res.status(400).json({
-                mensaje: "Id del usuario no válido",
-                status: 400
-            })
-        }
-
-        if (req.body.password) {
-            const user = await User.findByIdAndUpdate(id, {
-                ...req.body,
-                name,
-                lastname,
-                password: encryptPassword(password)
-            }, { new: true });
-
-            if (!user) {
-                return res.status(404).json({
-                    mensaje: "Usuario no encontrado",
-                    status: 404
-                })
-            }
-            const payload = {
-                sub: user._id,
-                email: user.email,
-                name: user.name,
-                lastname: user.lastname,
-            }
-
-            const token = jwt.sign(payload, secret, { algorithm: process.env.ALGORITHM });
-
-            return res.status(200).json({
-                mensaje: "Usuario modificado correctamente",
-                status: 200,
-                token
-            })
-        }
-
-        const user = await User.findByIdAndUpdate(id, {
-            ...req.body,
-            name,
-            lastname
-        }, { new: true });
-
-        const payload = {
-            sub: user._id,
-            email: user.email,
-            name: user.name,
-            lastname: user.lastname
-        }
-
-        const token = jwt.sign(payload, secret, { algorithm: process.env.ALGORITHM });
-
-        return res.status(200).json({
-            mensaje: "Usuario modificado correctamente",
-            status: 200,
-            token
-        })
-
-
-    } catch (error) {
-        return res.status(500).json({
-            mensaje: "Hubo un error, intente más tarde",
-            status: 500,
         })
     }
 }
@@ -298,9 +193,7 @@ module.exports = {
     register,
     getAllUsers,
     getUserById,
-    deleteUser,
     login,
-    userUpdate,
     recoverPass,
     resetPass
 }

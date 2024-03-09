@@ -26,7 +26,7 @@ cloudinary.config({
 passport.use("jwt", jwtStrategy);
 
 //configuracion de rutas
-app.use("/", router);
+app.use("/api/v1/", router);
 
 dbConnection();
 
