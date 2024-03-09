@@ -83,6 +83,35 @@ const getBookById = async (req, res) => {
     }
 }
 
+const updateBook = async (req, res) => {
+    const { id } = req.params;
+    const { title, autor, year, resume, gender } = req.body;
+    try {
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({
+                mensaje: "Id del libro no válido",
+                status: 400
+            })
+        }
+        const alumno = await Alumno.findByIdAndUpdate(id, {
+            ...req.body,
+            title,
+            autor, 
+            year,
+            resume,
+            gender
+        }, { new: true });
+        return res.status(200).json({
+            mensaje: "Libro modificado correctamente",
+            status: 200,
+        })
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Hubo un error, intente más tarde",
+            status: 500,
+        })
+    }
+}
 
 module.exports = {
     getAllBooks,
