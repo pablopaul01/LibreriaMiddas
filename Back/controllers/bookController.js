@@ -1,4 +1,40 @@
-const Book = require("../models/Book");
+const Book = require("../models/bookSchema");
+const cloudinary = require("cloudinary").v2
+
+const createBook = async (req, res) => {
+    const { title, autor, year, resume, gender } = req.body;
+    const { path } = req.file;
+    const book = await Book.findOne({ title });
+    try {
+        if (book) {
+            return res.status(400).json({
+                mensaje: "El libro ya se encuentra creado",
+                status: 400
+            })
+        }
+        const imgCloud= await cloudinary.uploader.upload( req.file.path );
+        const newBook = new Book({
+            title,
+            autor,
+            year,
+            resume,
+            gender,
+            img: imgCloud.secure_url
+        })
+        await newBook.save();
+        return res.status(201).json({
+            mensaje: "Programa creado correctamente",
+            status: 201,
+            newBook
+        })
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Hubo un error, intente más tarde",
+            status: 500,
+            error: error.message
+        })
+    }
+}
 
 const getAllBooks = async (req, res) => {
     try {
@@ -22,6 +58,33 @@ const getAllBooks = async (req, res) => {
   }
 };  
 
+const getBookById = async (req, res) => {
+    const { id } = req.params;
+
+    const book = await Book.findById(id);
+    try {
+        if (!book) {
+            return res.status(400).json({
+                mensaje: "Libro no encontrado",
+                status: 400
+            })
+        }
+        return res.status(201).json({
+            mensaje: "Libro encontrado exitosamente",
+            status: 201,
+            book
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            mensaje: "Hubo un error, intente más tarde",
+            status: 500
+        })
+    }
+}
+
+
 module.exports = {
-    getAllBooks
+    getAllBooks,
+    getBookById
 }
