@@ -8,3 +8,12 @@ export const getBooks = async (setBooks) => {
       console.log("el error", error.response.data.mensaje)
     }
 }
+
+export const addBook = async (newBook) => {
+    try {
+        await axiosInstance.post('/book', newBook)
+    }
+    catch(error){
+        console.log(error)
+    }
+}
