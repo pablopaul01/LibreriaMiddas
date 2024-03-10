@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 // import './modal.css'
-const Modal = ({ btnText, btnA, id, children }) => {
-  console.log(btnText);
+const Modal = ({ btnText, btnA, id, children}) => {
+
+
   return (
     <>
       {/* cambiar las className segun la doc de tailwind para estilizar el boton*/}
@@ -10,19 +11,21 @@ const Modal = ({ btnText, btnA, id, children }) => {
         (
           <button
           className='p-1  rounded-lg  text-gray-600 hover:text-green-700 hover:cursor-pointer hover:scale-125 transition-all'
-          onClick={() => document.getElementById(`modal_${id}`).showModal()}
+          onClick={() => {document.getElementById(`modal_${id}`).showModal()}}
         >
           {btnText}
         </button>
         ) 
         : 
         (
-          <button  onClick={() => document.getElementById(`modal_${id}`).showModal()}>{btnA}</button>
+          <div  onClick={() => {
+            document.getElementById(`modal_${id}`).showModal()
+          }}>{btnA}</div>
         )
       }
 
 
-      <dialog id={`modal_${id}`} className='modal border border-black'>
+      <dialog id={`modal_${id}`} className='modal border border-black' >
         <div className='modal-box overflow-visible w-auto px-10 bg-white rounded-box bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-80 shadow-2xl'>
           {/* CONTENT */}
           {children}

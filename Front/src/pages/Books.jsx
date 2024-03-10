@@ -3,15 +3,15 @@ import { getBooks } from '../helpers/dataBooks'
 import TableBooks from '../components/TableBooks'
 import ActionButton from '../components/ActionButton'
 import Modal from '../components/modal/Modal'
+import FormCreateBook from '../components/FormCreateBook'
 
 const Books = () => {
     const [books, setBooks] = useState([])
+    const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     getBooks(setBooks)
   }, [])
-
-  console.log("books", books)
 
   return (
     <div className='bg-slate-100 text-black h-[100vh] flex justify-center w-full'>
@@ -23,11 +23,12 @@ const Books = () => {
                   >
                     <div className='flex flex-col gap-5'>
                       <h3 className='font-bold text-lg'>Cargar Libro</h3>
-                      
-                    </div>
-                </Modal>
+                      <div className='modal-action' method='dialog'>
 
-            
+                        <FormCreateBook setBooks={setBooks} />
+                      </div>
+                    </div>
+            </Modal>
             <TableBooks books={books}/>
         </div>
     </div>
