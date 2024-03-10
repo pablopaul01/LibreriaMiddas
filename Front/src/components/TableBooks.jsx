@@ -1,49 +1,68 @@
 import React from 'react'
+import DataTable from 'react-data-table-component';
+import { FaRegHeart } from "react-icons/fa";
+import { GrEdit } from "react-icons/gr";
+import DeleteButton from './DeleteButton';
 
 const TableBooks = ({books}) => {
+
+    const columns = [
+        {
+            name: '',
+            selector: row =>  <FaRegHeart className='text-lg'/>,
+            sortable: true,
+            center: "true",
+            width: "10%"
+        },
+        {
+            name: 'Titulo',
+            selector: row => row.title,
+            sortable: true,
+            center: "true"
+        },
+        {
+            name: 'Autor',
+            selector: row => row.autor,
+            sortable: true,
+            center: "true",
+            width: "20%"
+        },
+        {
+            name: 'Año',
+            selector: row => row.year,
+            sortable: true,
+            center: "true",
+            width: "10%"
+        },
+        {
+            name: 'Acciones',
+            selector: row =>                         
+            <div className="flex justify-center gap-2 flex-col lg:table-cell">
+                <button className="btn btn-ghost btn-xs"><GrEdit className='text-base'/></button>
+                <DeleteButton id={row._id}/>
+            </div>,
+            center: "true",
+            width: "10%"
+        },
+    ];
+
+    const paginationComponentOptions = {
+        rowsPerPageText: 'Filas por página',
+        rangeSeparatorText: 'de',
+        selectAllRowsItem: true,
+        selectAllRowsItemText: 'Todos',
+    };
+
   return (
-    <div className="overflow-x-auto md:mx-20 mb-10 rounded-lg shadow-md p-7">
-        <table className="table table-sm md:table-lg card_container">
-            <thead>
-            <tr className='text-center'>
-                <th>Titulo</th>
-                <th className='hidden md:table-cell'>Año</th>
-                <th >Genero</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            {
-                books.map(book => (
-                    <tr key={book._id} className='text-center'>
-                        <td>
-                        <div className="flex items-center gap-3">
-                            <div className="avatar hidden md:inline">
-                                <div className="mask mask-squircle w-12 h-12">
-                                    <img src={book.img} alt="Avatar Tailwind CSS Component" />
-                                </div>
-                            </div>
-                            <div>
-                            <div className="font-bold">{book.title}</div>
-                            <div className="text-sm opacity-50">{book.autor}</div>
-                            </div>
-                        </div>
-                        </td>
-                        <td className="text-sm opacity-50 hidden md:table-cell ">
-                        {book.year}
-                        </td>
-                        <td className="text-sm opacity-50">{book.gender}</td>
-                        <th className="flex justify-center gap-2 flex-col lg:table-cell">
-                        <button className="btn btn-ghost btn-xs">Edit</button>
-                        <button className="btn btn-ghost btn-xs">Delete</button>
-                        <button className="btn btn-ghost btn-xs">Fav</button>
-                        </th>
-                    </tr>
-                ))
-            }
-            </tbody>
-            
-        </table>
+    <div className="overflow-x-auto mb-10 rounded-lg shadow-md p-7 bg-white">
+        <DataTable 
+            columns={columns} 
+            data={books}
+            pagination
+            highlightOnHover
+		    pointerOnHover
+            paginationComponentOptions={paginationComponentOptions}
+        />
     </div>
   )
 }
