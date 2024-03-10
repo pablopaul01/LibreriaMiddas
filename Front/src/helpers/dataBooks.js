@@ -50,3 +50,14 @@ export const updateBook = async (updatedBook, id, setLoading, setBooks) => {
     document.getElementById(`modal_${id}`).close()
   }
 }
+
+export const addFavoriteBook = async (bookId, userId, setBooks) => {
+  try {
+    await axiosInstance.post(`/user/favorite/${userId}`, {bookId})
+    getBooks(setBooks)
+    toast.success('Libro agregado a favoritos', {position: 'top-right'})
+  } catch (error) {
+    console.log("Error al agregar a favoritos", error)
+    toast.error('Ocurrió un error al agregar a favoritos', {position: 'top-right'})
+  }
+}
