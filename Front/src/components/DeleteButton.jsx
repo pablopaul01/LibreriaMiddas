@@ -26,7 +26,7 @@ const DeleteButton = () => {
     <span className='flex flex-row gap-3 justify-center items-center'>
       {!openDelete ? (
         <IoTrash
-          size={25}
+          size={24}
           className='p-0  text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'
           onClick={() => setOpenDelete(true)}
         />
