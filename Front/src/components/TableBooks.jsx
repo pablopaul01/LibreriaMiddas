@@ -5,6 +5,7 @@ import { GrEdit } from "react-icons/gr";
 import "../css/pagination.css"
 import DeleteButton from './DeleteButton';
 import Modal from './modal/Modal';
+import FormUpdateBook from './FormUpdateBook';
 
 
 const TableBooks = ({books, setBooks}) => {
@@ -62,7 +63,7 @@ const TableBooks = ({books, setBooks}) => {
                   >
                     <div className='flex flex-col gap-5'>
                       <h3 className='font-bold text-lg'>Editar</h3>
-                      
+                      <FormUpdateBook id={row._id} setBooks={setBooks} book={row}/>
                     </div>
                 </Modal>
                 <DeleteButton id={row._id} setBooks={setBooks}/>
@@ -77,11 +78,6 @@ const TableBooks = ({books, setBooks}) => {
         rangeSeparatorText: 'de',
         selectAllRowsItem: true,
         selectAllRowsItemText: 'Todos',
-        paginationDropdown: {
-            style: {
-                color: 'red', // Cambiar color del texto aquí
-            },
-        },
     };
 
   return (

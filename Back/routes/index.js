@@ -18,7 +18,7 @@ router.delete('/user/favorite/:userId', removeFavoriteBook)
 router.post("/book", upload.single("img"), createBook);
 router.get("/books", getAllBooks);
 router.get("/book/:id", getBookById);
-router.put("/book/:id", updateBook);
+router.put("/book/:id",upload.none(), updateBook);
 router.delete("/book/:id", deleteBook);
 
 module.exports = router;

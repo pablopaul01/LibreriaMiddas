@@ -36,3 +36,17 @@ export const deleteBook = async (id,setBooks) => {
     toast.error('Ocurrió un error al eliminar el libro', {position: 'top-right'})
   }
 }
+
+export const updateBook = async (updatedBook, id, setLoading, setBooks) => {
+  try {
+    await axiosInstance.put(`/book/${id}`, updatedBook)
+    getBooks(setBooks)
+    toast.success('Libro actualizado correctamente', {position: 'top-right'})
+  }catch (error) {
+    console.log("Error al actualizar", error)
+    toast.error('Ocurrió un error al actualizar el libro', {position: 'top-right'})
+  }finally {
+    setLoading(false)
+    document.getElementById(`modal_${id}`).close()
+  }
+}

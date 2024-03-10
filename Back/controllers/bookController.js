@@ -88,6 +88,7 @@ const getBookById = async (req, res) => {
 const updateBook = async (req, res) => {
     const { id } = req.params;
     const { title, autor, year, resume, gender } = req.body;
+    console.log(req.body);
     try {
         if (!mongoose.isValidObjectId(id)) {
             return res.status(400).json({
