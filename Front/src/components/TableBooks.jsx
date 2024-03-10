@@ -57,14 +57,14 @@ const TableBooks = ({books}) => {
                 className='p-0 text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'
                 />
                 <Modal
-                            btnText={<GrEdit size={20} />}
-                            id={row._id}
-                          >
-                            <div className='flex flex-col gap-5'>
-                              <h3 className='font-bold text-lg'>Editar</h3>
-                              
-                            </div>
-                          </Modal>
+                    btnText={<GrEdit size={20} />}
+                    id={row._id}
+                  >
+                    <div className='flex flex-col gap-5'>
+                      <h3 className='font-bold text-lg'>Editar</h3>
+                      
+                    </div>
+                </Modal>
                 <DeleteButton id={row._id}/>
             </div>,
             center: "true",
