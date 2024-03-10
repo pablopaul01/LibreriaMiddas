@@ -7,7 +7,7 @@ import DeleteButton from './DeleteButton';
 import Modal from './modal/Modal';
 
 
-const TableBooks = ({books}) => {
+const TableBooks = ({books, setBooks}) => {
 
     const columns = [
         {
@@ -65,7 +65,7 @@ const TableBooks = ({books}) => {
                       
                     </div>
                 </Modal>
-                <DeleteButton id={row._id}/>
+                <DeleteButton id={row._id} setBooks={setBooks}/>
             </div>,
             center: "true",
             width: "19%"

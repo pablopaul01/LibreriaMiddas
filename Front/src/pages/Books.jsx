@@ -29,7 +29,7 @@ const Books = () => {
                       </div>
                     </div>
             </Modal>
-            <TableBooks books={books}/>
+            <TableBooks books={books} setBooks={setBooks}/>
         </div>
     </div>
   )
