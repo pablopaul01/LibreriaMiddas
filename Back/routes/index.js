@@ -12,7 +12,7 @@ router.post("/login", login);
 router.get('/user/recover', recoverPass);
 router.put('/user/reset/:id/:token', resetPass);
 router.put('/user/favorite/:userId', addFavoriteBook);
-router.delete('/user/favorite/:userId', removeFavoriteBook)
+router.put('/user/favorite/remove/:userId', removeFavoriteBook)
 
 //rutas de libros
 router.post("/book", upload.single("img"), createBook);

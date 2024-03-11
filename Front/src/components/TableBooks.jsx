@@ -6,26 +6,39 @@ import "../css/pagination.css"
 import DeleteButton from './DeleteButton';
 import Modal from './modal/Modal';
 import FormUpdateBook from './FormUpdateBook';
-import { addFavoriteBook, isFavorite } from '../helpers/dataBooks';
+import { addFavoriteBook, getBooks, getUserById, removeFavoriteBook } from '../helpers/dataBooks';
 import { jwtDecode } from 'jwt-decode';
 import { FaHeart } from "react-icons/fa";
+import { axiosInstance } from '../config/axiosInstance';
 
 
 
 const TableBooks = ({books, setBooks, }) => {
     const [userId, setUserId]  = useState (null)
-
+    const [favoritesBooks, setFavoritesBooks] = useState([])
     useEffect(() => {
       const decode = jwtDecode(localStorage.getItem("token"))
       setUserId(decode.sub)
-
+    getUserById(decode.sub, setFavoritesBooks)
     }, [])
     
 
-    const addFavorite = (idBook)=>{
-        addFavoriteBook(idBook,userId, setBooks)
+    const addFavorite = (idBook,setBooks)=>{
+        addFavoriteBook(idBook,userId, setBooks,setFavoritesBooks)
     }
 
+    const removeFavorite = (idBook,setBooks) => {
+        removeFavoriteBook(idBook, userId, setBooks, setFavoritesBooks)
+    }
+
+    const isFavorite = (bookId) => {
+        if (favoritesBooks && favoritesBooks.includes(bookId)){
+            return true
+        }
+        else
+        { return false}
+      }
+    console.log(favoritesBooks)
     const columns = [
         {
             name: '',
@@ -70,17 +83,16 @@ const TableBooks = ({books, setBooks, }) => {
             selector: row =>               
             <div className="flex justify-center gap-1 flex-col lg:flex-row items-center px-5">
                 {
-                isFavorite(row._id,userId) ?
+                isFavorite(row._id) ?
                 (
                     <FaHeart 
                     size={20} 
                     className='p-0 text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'
-                    onClick={()=>addFavorite(row._id, setBooks)}
+                    onClick={()=>removeFavorite(row._id, setBooks)}
                     />
                 )
                 :
                 (
-                    
                     <FaRegHeart 
                     size={20} 
                     className='p-0 text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'

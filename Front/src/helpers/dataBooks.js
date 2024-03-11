@@ -51,9 +51,10 @@ export const updateBook = async (updatedBook, id, setLoading, setBooks) => {
   }
 }
 
-export const addFavoriteBook = async (bookId, userId, setBooks) => {
+export const addFavoriteBook = async (bookId, userId, setBooks, setFavoritesBooks) => {
   try {
     await axiosInstance.put(`/user/favorite/${userId}`, {bookId})
+    getUserById(userId, setFavoritesBooks)
     getBooks(setBooks)
     toast.success('Libro agregado a favoritos', {position: 'top-right'})
   } catch (error) {
@@ -62,13 +63,23 @@ export const addFavoriteBook = async (bookId, userId, setBooks) => {
   }
 }
 
-
-export const isFavorite = async (bookId, userId) => {
+export const removeFavoriteBook = async (bookId, userId, setBooks, setFavoritesBooks) => {
   try {
-    const response = await axiosInstance.get(`/user/${userId}`)
-    const checkFavorite = response.data.user.favorites.some(book => book._id === bookId)
-    toast.success("Libro agregado a favoritos", {position:"top-right"})
+    await axiosInstance.put(`/user/favorite/remove/${userId}`, {bookId})
+    getUserById(userId, setFavoritesBooks)
+    getBooks(setBooks)
+    toast.success('Libro removido de favoritos', {position: 'top-right'})
   } catch (error) {
-    
+    console.log(error)
+    toast.error('Ocurrió un error al remover de favoritos', {position: 'top-right'})
+  }
+}
+
+export const getUserById = async (userId,setFavoritesBooks) => {
+  try {
+      const response =await axiosInstance.get(`/user/${userId}`)
+      setFavoritesBooks( response.data.user.favorites )
+  } catch (error) {
+      console.log(error)
   }
 }

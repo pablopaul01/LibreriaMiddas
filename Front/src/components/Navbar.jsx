@@ -5,6 +5,7 @@ import { MdSettingsSuggest } from 'react-icons/md'
 
 const Navbar = ({isLogged, setIsLogged}) => {
     const [userId, setUserId] = useState(null)
+
     const handleLogout = () => {
         localStorage.clear()
         setIsLogged(false)
@@ -17,9 +18,6 @@ const Navbar = ({isLogged, setIsLogged}) => {
             setUserId(decode.sub)
         }
     }, [isLogged])
-    
-
-console.log(userId)
 
   return (
     <div className="drawer text-white">
