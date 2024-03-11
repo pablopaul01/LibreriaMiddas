@@ -1,11 +1,25 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
+import { MdSettingsSuggest } from 'react-icons/md'
 
 const Navbar = ({isLogged, setIsLogged}) => {
+    const [userId, setUserId] = useState(null)
     const handleLogout = () => {
         localStorage.clear()
         setIsLogged(false)
+        setUserId("null")
     }
+
+    useEffect(() => {
+        if (isLogged){
+            const decode = jwtDecode(localStorage.getItem('token'));
+            setUserId(decode.sub)
+        }
+    }, [isLogged])
+    
+
+console.log(userId)
 
   return (
     <div className="drawer text-white">
@@ -28,7 +42,7 @@ const Navbar = ({isLogged, setIsLogged}) => {
             isLogged && (
                 <>
                 <li><Link to={'/books'}>Listado de Libros</Link></li>
-                <li><a>Mis favoritos</a></li>
+                <li><Link to={`/favorites/${userId}`}>Mis favoritos</Link></li>
                 </>
             )
           }
