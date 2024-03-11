@@ -12,16 +12,16 @@ function App() {
   })
 
   const isAuthenticated = !!localStorage.getItem('token');
-  
+
   return (
     <>
     <Navbar isLogged={isLogged} setIsLogged={setIsLogged}/>
     <Toaster richColors/>
       <Routes>
 
-        <Route path='/books' element={!isAuthenticated && <Books />} />
+        <Route path='/books' element={ <Books />} />
         <Route path='/login' element={!isAuthenticated &&  <Login setIsLogged={setIsLogged} />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/register' element={!isAuthenticated && <Register />} />
 
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
