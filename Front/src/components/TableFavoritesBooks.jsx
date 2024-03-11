@@ -13,7 +13,7 @@ import { axiosInstance } from '../config/axiosInstance';
 
 
 
-const TableBooks = ({books, setBooks, }) => {
+const TableFavoritesBooks = ({books, setBooks }) => {
     const [userId, setUserId]  = useState (null)
     const [favoritesBooks, setFavoritesBooks] = useState([])
     useEffect(() => {
@@ -137,4 +137,4 @@ const TableBooks = ({books, setBooks, }) => {
   )
 }
 
-export default TableBooks
+export default TableFavoritesBooks

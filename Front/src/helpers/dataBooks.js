@@ -11,6 +11,16 @@ export const getBooks = async (setBooks) => {
     }
 }
 
+export const getFavoritesBooks = async (userId,setBooks) => {
+  try {
+    const resp = await axiosInstance.get(`/user/collection/${userId}`)
+    console.log(resp)
+    setBooks(resp.data.user.favorites)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const createBook = async (newBook,setLoading,setBooks) => {
     try {
         await axiosInstance.post('/book', newBook)

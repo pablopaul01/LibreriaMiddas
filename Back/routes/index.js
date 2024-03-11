@@ -1,13 +1,14 @@
 const router = require("express").Router();
 const upload = require("../middlewares/multer");
 const { createBook, getAllBooks, getBookById, updateBook, deleteBook } = require("../controllers/bookController");
-const { register, getAllUsers, getUserById, login, recoverPass, resetPass } = require("../controllers/userController");
+const { register, getAllUsers, getUserById, login, recoverPass, resetPass, getUserByIdPopulate } = require("../controllers/userController");
 const { addFavoriteBook, removeFavoriteBook } = require("../controllers/favoriteBookController");
 
 //rutas de usuarios
 router.post("/register", register);
 router.get("/users", getAllUsers);
 router.get("/user/:id", getUserById);
+router.get("/user/collection/:id", getUserByIdPopulate);
 router.post("/login", login);
 router.get('/user/recover', recoverPass);
 router.put('/user/reset/:id/:token', resetPass);
