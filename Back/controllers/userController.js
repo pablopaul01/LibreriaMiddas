@@ -88,18 +88,13 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const { email, password } = req.body;
+    console.log("req body", req.body);
     const user = await User.findOne({ email });
     const secret = process.env.JWT_SECRET;
     try {
         if (!user) {
             return res.status(404).json({
                 mensaje: "Usuario no encontrado",
-                status: 404
-            })
-        }
-        if (user.state === false) {
-            return res.status(404).json({
-                mensaje: "El usuario tiene la cuenta suspendida",
                 status: 404
             })
         }

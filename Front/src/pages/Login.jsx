@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom'
 import CardUser from '../components/CardUser'
 import LoginForm from '../components/LoginForm'
 
-const Login = () => {
+const Login = ({setIsLogged}) => {
 
 
   return (
     <div className='h-[100vh] bg-slate-100 flex justify-center items-center'>
         <CardUser title={"Iniciar Sesión"} subTitle={"Ingrese su correo para iniciar sesión"}>
-            <LoginForm />
+            <LoginForm setIsLogged={setIsLogged}/>
         </CardUser>
     </div>
   )

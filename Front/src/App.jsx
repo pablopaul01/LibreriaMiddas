@@ -7,7 +7,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 
 function App() {
-
+const [isLogged, setIsLogged] = useState(false)
   return (
     <>
     <Navbar />
@@ -15,7 +15,7 @@ function App() {
       <Routes>
 
         <Route path='/books' element={<Books />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login setIsLogged={setIsLogged} />} />
         <Route path='/register' element={<Register />} />
 
         <Route path='*' element={<h1>Not Found</h1>} />

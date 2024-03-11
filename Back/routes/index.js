@@ -8,7 +8,7 @@ const { addFavoriteBook, removeFavoriteBook } = require("../controllers/favorite
 router.post("/register", register);
 router.get("/users", getAllUsers);
 router.get("/user/:id", getUserById);
-router.get("/login", login);
+router.post("/login", login);
 router.get('/user/recover', recoverPass);
 router.put('/user/reset/:id/:token', resetPass);
 router.put('/user/favorite/:userId', addFavoriteBook);
