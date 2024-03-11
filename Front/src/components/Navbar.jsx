@@ -1,8 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+const Navbar = ({isLogged, setIsLogged}) => {
+    const handleLogout = () => {
+        localStorage.clear()
+        setIsLogged(false)
+    }
 
-const Navbar = () => {
   return (
     <div className="drawer text-white">
   <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
@@ -20,18 +24,37 @@ const Navbar = () => {
       <div className="flex-none hidden lg:block">
         <ul className="menu menu-horizontal">
           {/* Navbar menu content here */}
-            <li><Link to={'/books'}>Listado de Libros</Link></li>
-            <li><a>Mis favoritos</a></li>
+          {
+            isLogged && (
+                <>
+                <li><Link to={'/books'}>Listado de Libros</Link></li>
+                <li><a>Mis favoritos</a></li>
+                </>
+            )
+          }
+
             <li>
-                <details>
-                <summary>
-                    Iniciar sesión | Registrarse
-                </summary>
-                <ul className="p-2 bg-[#18181B] rounded-t-none flex items-center flex-col w-full">
-                    <li><Link to={'/login'}>Iniciar Sesión</Link></li>
-                    <li><a>Registrarme</a></li>
-                </ul>
-                </details>
+                {
+                    isLogged ? 
+                    (
+                        <Link to={'/login'} onClick={handleLogout}>Cerrar Sesión</Link>
+                    ) 
+                    : 
+                    (
+
+                        <details>
+                        <summary>
+                            
+                            Iniciar sesión | Registrarse
+                        </summary>
+                        <ul className="p-2 bg-[#18181B] rounded-t-none flex items-center flex-col w-full">
+                            <li><Link to={'/login'}>Iniciar Sesión</Link></li>
+                            <li><a>Registrarme</a></li>
+                        </ul>
+                        </details>
+                    )
+                  
+                }
             </li>
         </ul>
       </div>

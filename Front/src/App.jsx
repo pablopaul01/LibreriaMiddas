@@ -10,7 +10,7 @@ function App() {
 const [isLogged, setIsLogged] = useState(false)
   return (
     <>
-    <Navbar />
+    <Navbar isLogged={isLogged} setIsLogged={setIsLogged}/>
     <Toaster richColors/>
       <Routes>
 
