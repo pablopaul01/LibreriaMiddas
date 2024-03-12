@@ -14,7 +14,6 @@ export const getBooks = async (setBooks) => {
 export const getFavoritesBooks = async (userId,setBooks) => {
   try {
     const resp = await axiosInstance.get(`/user/collection/${userId}`)
-    console.log(resp)
     setBooks(resp.data.user.favorites)
   } catch (error) {
     console.log(error)
@@ -73,11 +72,21 @@ export const addFavoriteBook = async (bookId, userId, setBooks, setFavoritesBook
   }
 }
 
-export const removeFavoriteBook = async (bookId, userId, setBooks, setFavoritesBooks) => {
+export const removeFavoriteBook = async (bookId, userId, setBooks, setFavoritesBooks, fromFavorite) => {
+  console.log("fromfavorite",fromFavorite)
   try {
     await axiosInstance.put(`/user/favorite/remove/${userId}`, {bookId})
-    getUserById(userId, setFavoritesBooks)
-    getBooks(setBooks)
+
+    if (fromFavorite) {
+      getFavoritesBooks(userId,setBooks)
+      console.log("entro por el if")
+    }
+    else
+    {
+      getUserById(userId, setFavoritesBooks)
+      getBooks(setBooks)
+      console.log("entro por el else")
+    }
     toast.success('Libro removido de favoritos', {position: 'top-right'})
   } catch (error) {
     console.log(error)

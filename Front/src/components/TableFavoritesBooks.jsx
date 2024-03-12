@@ -16,28 +16,18 @@ import { axiosInstance } from '../config/axiosInstance';
 const TableFavoritesBooks = ({books, setBooks }) => {
     const [userId, setUserId]  = useState (null)
     const [favoritesBooks, setFavoritesBooks] = useState([])
+
     useEffect(() => {
       const decode = jwtDecode(localStorage.getItem("token"))
       setUserId(decode.sub)
-    getUserById(decode.sub, setFavoritesBooks)
+      getUserById(decode.sub, setFavoritesBooks)
     }, [])
     
 
-    const addFavorite = (idBook,setBooks)=>{
-        addFavoriteBook(idBook,userId, setBooks,setFavoritesBooks)
-    }
-
     const removeFavorite = (idBook,setBooks) => {
-        removeFavoriteBook(idBook, userId, setBooks, setFavoritesBooks)
+        const fromFavorites = true;
+        removeFavoriteBook(idBook, userId, setBooks, setFavoritesBooks, fromFavorites)
     }
-
-    const isFavorite = (bookId) => {
-        if (favoritesBooks && favoritesBooks.includes(bookId)){
-            return true
-        }
-        else
-        { return false}
-      }
 
     const columns = [
         {
@@ -82,34 +72,11 @@ const TableFavoritesBooks = ({books, setBooks }) => {
             name: 'Acciones',
             selector: row =>               
             <div className="flex justify-center gap-1 flex-col lg:flex-row items-center px-5">
-                {
-                isFavorite(row._id) ?
-                (
-                    <FaHeart 
-                    size={20} 
-                    className='p-0 text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'
-                    onClick={()=>removeFavorite(row._id, setBooks)}
-                    />
-                )
-                :
-                (
-                    <FaRegHeart 
-                    size={20} 
-                    className='p-0 text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'
-                    onClick={()=>addFavorite(row._id, setBooks)}
-                    />
-                )
-            }          
-                <Modal
-                    btnText={<GrEdit size={20} />}
-                    id={row._id}
-                  >
-                    <div className='flex flex-col gap-5'>
-                      <h3 className='font-bold text-lg'>Editar</h3>
-                      <FormUpdateBook id={row._id} setBooks={setBooks} book={row}/>
-                    </div>
-                </Modal>
-                <DeleteButton id={row._id} setBooks={setBooks}/>
+                <FaHeart 
+                size={20} 
+                className='p-0 text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'
+                onClick={()=>removeFavorite(row._id, setBooks)}
+                />               
             </div>,
             center: "true",
             width: "19%"
@@ -128,6 +95,7 @@ const TableFavoritesBooks = ({books, setBooks }) => {
         <DataTable 
             columns={columns} 
             data={books}
+            noDataComponent="No hay ningún libro en favoritos del usuario"
             pagination
             highlightOnHover
 		    pointerOnHover
