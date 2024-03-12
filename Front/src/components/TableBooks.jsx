@@ -9,7 +9,9 @@ import FormUpdateBook from './FormUpdateBook';
 import { addFavoriteBook, getBooks, getUserById, removeFavoriteBook } from '../helpers/dataBooks';
 import { jwtDecode } from 'jwt-decode';
 import { FaHeart } from "react-icons/fa";
-import { axiosInstance } from '../config/axiosInstance';
+import { FaCircleInfo } from "react-icons/fa6";
+import CardBook from './cardBook';
+import BookContent from './BookContent';
 
 
 
@@ -81,7 +83,8 @@ const TableBooks = ({books, setBooks, }) => {
         {
             name: 'Acciones',
             selector: row =>               
-            <div className="flex justify-center gap-1 flex-col lg:flex-row items-center px-5">
+            <div className="flex justify-center gap-1 flex-col lg:flex-row items-center px-5 py-2 lg:py-0">
+
                 {
                 isFavorite(row._id) ?
                 (
@@ -110,6 +113,18 @@ const TableBooks = ({books, setBooks, }) => {
                     </div>
                 </Modal>
                 <DeleteButton id={row._id} setBooks={setBooks}/>
+                <CardBook 
+                btnText={<FaCircleInfo size={20} />}
+                id={row._id}>
+                    <BookContent 
+                        img={row.img}
+                        title={row.title}
+                        autor={row.autor}
+                        year={row.year}
+                        gender={row.gender}
+                        resume={row.resume}
+                    />
+                </CardBook>
             </div>,
             center: "true",
             width: "19%"
