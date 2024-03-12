@@ -59,7 +59,7 @@ const LoginForm = ({setIsLogged}) => {
                     {
                         showPassword ? (<FaEye />) : (<FaEyeSlash />)
                     }
-                </span>
+                    </span>
                 </div>
                 <p className="text-danger my-1 text-center">
                     {errors.password?.message}
