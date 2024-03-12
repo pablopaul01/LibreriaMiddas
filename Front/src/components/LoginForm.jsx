@@ -83,7 +83,7 @@ const LoginForm = ({setIsLogged}) => {
                     <Link to="/register" > Regístrate</Link></span>
                 </div>
                 <div className="text-center font-bold text-sm">
-                    <Link to="/error" className=" mb-4">¿Olvidaste tu contraseña?</Link>
+                    <Link to="/recover" className=" mb-4">¿Olvidaste tu contraseña?</Link>
                 </div>
             </form>
   )
