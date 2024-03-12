@@ -12,12 +12,15 @@ import { FaHeart } from "react-icons/fa";
 import { FaCircleInfo } from "react-icons/fa6";
 import CardBook from './cardBook';
 import BookContent from './BookContent';
+import SearchComponent from './SearchComponent';
 
 
 
 const TableBooks = ({books, setBooks, }) => {
     const [userId, setUserId]  = useState (null)
     const [favoritesBooks, setFavoritesBooks] = useState([])
+    const [searchTerm, setSearchTerm] = useState('');
+
     useEffect(() => {
       const decode = jwtDecode(localStorage.getItem("token"))
       setUserId(decode.sub)
@@ -186,11 +189,16 @@ const TableBooks = ({books, setBooks, }) => {
         selectAllRowsItemText: 'Todos',
     };
 
+    const filteredBooks = searchTerm ? books.filter(book => book.title.toLowerCase().includes(searchTerm.toLowerCase())) : books;
+
   return (
     <div className="overflow-x-auto mb-10 rounded-lg shadow-md p-7 bg-white">
+        <div className='w-full flex justify-center lg:justify-end mb-10'>
+            <SearchComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        </div>
         <DataTable 
             columns={columns} 
-            data={books}
+            data={filteredBooks}
             noDataComponent="No hay ningún libro cargado"
             pagination
             highlightOnHover
