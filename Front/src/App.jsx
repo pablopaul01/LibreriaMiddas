@@ -21,7 +21,7 @@ function App() {
       <Routes>
 
         <Route path='/books' element={isAuthenticated && <Books />} />
-        <Route path='/login' element={!isAuthenticated &&  <Login setIsLogged={setIsLogged} />} />
+        <Route path='/' element={!isAuthenticated &&  <Login setIsLogged={setIsLogged} />} />
         <Route path='/register' element={!isAuthenticated && <Register />} />
         <Route path='/favorites/' element={isAuthenticated && <Favorites />} />
 
