@@ -9,7 +9,7 @@ const CardBook = ({id,btnText,children}) => {
             {btnText}
           </div>
       <dialog id={`cardBook_${id}`} className='modal border border-black flex justify-center' >
-        <div className='w-10/12 md:w-7/12 bg-white rounded-box bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-80 shadow-2xl card lg:card-side bg-base-100 shadow-xl'>
+        <div className='w-10/12 md:w-7/12 bg-white rounded-box bg-clip-padding backdrop-filter backdrop-blur-md  shadow-2xl card lg:card-side'>
           {/* CONTENT */}
             {children}
           {/* END CONTENT */}

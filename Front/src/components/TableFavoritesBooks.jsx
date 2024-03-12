@@ -10,6 +10,9 @@ import { addFavoriteBook, getBooks, getUserById, removeFavoriteBook } from '../h
 import { jwtDecode } from 'jwt-decode';
 import { FaHeart } from "react-icons/fa";
 import { axiosInstance } from '../config/axiosInstance';
+import CardBook from './cardBook';
+import { FaCircleInfo } from 'react-icons/fa6';
+import BookContent from './BookContent';
 
 
 
@@ -40,8 +43,30 @@ const TableFavoritesBooks = ({books, setBooks }) => {
         },
         {
             name: 'Titulo',
-            selector: row => row.title,
-            sortable: true,
+            selector: row =>
+            <div>
+                {row.title}
+            <div className="flex justify-center gap-1 flex-row items-center px-5 py-2 lg:py-0 md:hidden">
+                <FaHeart 
+                size={20} 
+                className='p-0 text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'
+                onClick={()=>removeFavorite(row._id, setBooks)}
+                />
+                <CardBook 
+                    btnText={<FaCircleInfo size={20} />}
+                    id={row._id+1}>
+                        <BookContent 
+                            img={row.img}
+                            title={row.title}
+                            autor={row.autor}
+                            year={row.year}
+                            gender={row.gender}
+                            resume={row.resume}
+                        />
+                </CardBook>               
+            </div>    
+            </div>
+            ,
             center: "true",
         },
         {
@@ -71,15 +96,28 @@ const TableFavoritesBooks = ({books, setBooks }) => {
         {
             name: 'Acciones',
             selector: row =>               
-            <div className="flex justify-center gap-1 flex-col lg:flex-row items-center px-5">
+            <div className="flex justify-center gap-1 flex-col lg:flex-row items-center px-5 py-2 lg:py-0">
                 <FaHeart 
                 size={20} 
                 className='p-0 text-gray-600 hover:text-red-600 hover:border-transparent hover:cursor-pointer hover:scale-110 transition-all'
                 onClick={()=>removeFavorite(row._id, setBooks)}
-                />               
+                />
+                <CardBook 
+                    btnText={<FaCircleInfo size={20} />}
+                    id={row._id}>
+                        <BookContent 
+                            img={row.img}
+                            title={row.title}
+                            autor={row.autor}
+                            year={row.year}
+                            gender={row.gender}
+                            resume={row.resume}
+                        />
+                </CardBook>               
             </div>,
             center: "true",
-            width: "19%"
+            width: "19%",
+            hide:"md"
         },
     ];
 
