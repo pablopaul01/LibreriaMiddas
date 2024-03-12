@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import { MdSettingsSuggest } from 'react-icons/md'
 
+
 const Navbar = ({isLogged, setIsLogged}) => {
     const [userId, setUserId] = useState(null)
+
+    const location = useLocation()
 
     const handleLogout = () => {
         localStorage.clear()
@@ -39,8 +42,8 @@ const Navbar = ({isLogged, setIsLogged}) => {
           {
             isLogged && (
                 <>
-                <li><Link to={'/books'}>Listado de Libros</Link></li>
-                <li><Link to={`/favorites/`}>Mis favoritos</Link></li>
+                <li><Link to={'/books'} className={location.pathname === '/books' ? ' text-[#16b187] focus:text-[#16b187] hover:text-[#16b187]' : 'focus:text-white hover:text-[#16b187]'}>Listado de Libros</Link></li>
+                  <li><Link to={'/favorites/'} className={location.pathname === '/favorites/' ? 'text-[#16b187] focus:text-[#16b187] hover:text-[#16b187]' : 'focus:text-white hover:text-[#16b187]'}>Mis favoritos</Link></li>
                 </>
             )
           }
@@ -49,21 +52,14 @@ const Navbar = ({isLogged, setIsLogged}) => {
                 {
                     isLogged ? 
                     (
-                        <Link to={'/login'} onClick={handleLogout}>Cerrar Sesión</Link>
+                        <Link to={'/login'} onClick={handleLogout} className='hover:text-[#16b187]'>Cerrar Sesión</Link>
                     ) 
                     : 
                     (
-
-                        <details>
-                        <summary>
-                            
-                            Iniciar sesión | Registrarse
-                        </summary>
-                        <ul className="p-2 bg-[#18181B] rounded-t-none flex items-center flex-col w-full">
-                            <li><Link to={'/login'}>Iniciar Sesión</Link></li>
-                            <li><a>Registrarme</a></li>
+                        <ul className="p-2 bg-[#18181B] rounded-t-none flex items-center flex-row w-full">
+                            <li><Link to={'/login'} className={location.pathname === '/login' ? ' text-[#16b187] focus:text-[#16b187] hover:text-[#16b187]' : 'focus:text-white hover:text-[#16b187]'}>Iniciar Sesión</Link></li>
+                            <li><Link to={'/register'} className={location.pathname === '/register' ? ' text-[#16b187] focus:text-[#16b187] hover:text-[#16b187]' : 'focus:text-white hover:text-[#16b187]'}>Registrarme</Link></li>
                         </ul>
-                        </details>
                     )
                   
                 }
