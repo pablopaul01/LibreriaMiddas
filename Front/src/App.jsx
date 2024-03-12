@@ -5,18 +5,25 @@ import { Toaster } from 'sonner'
 import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Favorites from './pages/Favorites'
 
 function App() {
-const [isLogged, setIsLogged] = useState(false)
+  const [isLogged, setIsLogged] = useState(()=>{
+    return !!localStorage.getItem('token') || false
+  })
+
+  const isAuthenticated = !!localStorage.getItem('token');
+
   return (
     <>
-    <Navbar />
+    <Navbar isLogged={isLogged} setIsLogged={setIsLogged}/>
     <Toaster richColors/>
       <Routes>
 
-        <Route path='/books' element={<Books />} />
-        <Route path='/login' element={<Login setIsLogged={setIsLogged} />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/books' element={isAuthenticated && <Books />} />
+        <Route path='/login' element={!isAuthenticated &&  <Login setIsLogged={setIsLogged} />} />
+        <Route path='/register' element={!isAuthenticated && <Register />} />
+        <Route path='/favorites/' element={isAuthenticated && <Favorites />} />
 
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>

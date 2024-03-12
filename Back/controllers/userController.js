@@ -29,9 +29,35 @@ const getAllUsers = async (req, res) => {
     }
 }
 
-const getUserById = async (req, res) => {
+const getUserByIdPopulate = async (req, res) => {
     const { id } = req.params;
     const user = await User.findOne({ _id: id }).populate("favorites");
+    try {
+
+        if (!user) {
+            return res.status(404).json({
+                mensaje: "Usuario no encontrado",
+                status: 404,
+            });
+        }
+        return res.status(200).json({
+            mensaje: "Usuario encontrado exitosamente",
+            status: 200,
+            user,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            mensaje: "Hubo un error, intente más tarde",
+            status: 500,
+            error: error.message
+        });
+    }
+};
+
+const getUserById = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findOne({ _id: id });
     try {
 
         if (!user) {
@@ -109,6 +135,7 @@ const login = async (req, res) => {
             email: user.email,
             name: user.name,
             lastname: user.lastname,
+            favorites: user.favorites
         }
         const token = jwt.sign(payload, secret, { algorithm: process.env.ALGORITHM });
         return res.status(200).json({
@@ -182,6 +209,7 @@ module.exports = {
     register,
     getAllUsers,
     getUserById,
+    getUserByIdPopulate,
     login,
     recoverPass,
     resetPass
