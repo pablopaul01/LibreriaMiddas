@@ -128,6 +128,7 @@ const TableBooks = ({books, setBooks, }) => {
         <DataTable 
             columns={columns} 
             data={books}
+            noDataComponent="No hay ningún libro cargado"
             pagination
             highlightOnHover
 		    pointerOnHover

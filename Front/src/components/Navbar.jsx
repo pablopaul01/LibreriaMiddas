@@ -40,7 +40,7 @@ const Navbar = ({isLogged, setIsLogged}) => {
             isLogged && (
                 <>
                 <li><Link to={'/books'}>Listado de Libros</Link></li>
-                <li><Link to={`/favorites/${userId}`}>Mis favoritos</Link></li>
+                <li><Link to={`/favorites/`}>Mis favoritos</Link></li>
                 </>
             )
           }

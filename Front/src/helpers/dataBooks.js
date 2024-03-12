@@ -73,19 +73,16 @@ export const addFavoriteBook = async (bookId, userId, setBooks, setFavoritesBook
 }
 
 export const removeFavoriteBook = async (bookId, userId, setBooks, setFavoritesBooks, fromFavorite) => {
-  console.log("fromfavorite",fromFavorite)
   try {
     await axiosInstance.put(`/user/favorite/remove/${userId}`, {bookId})
 
     if (fromFavorite) {
       getFavoritesBooks(userId,setBooks)
-      console.log("entro por el if")
     }
     else
     {
       getUserById(userId, setFavoritesBooks)
       getBooks(setBooks)
-      console.log("entro por el else")
     }
     toast.success('Libro removido de favoritos', {position: 'top-right'})
   } catch (error) {
