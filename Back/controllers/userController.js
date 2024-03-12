@@ -178,7 +178,6 @@ const recoverPass = async (req, res) => {
         from: 'libreriamiddas@gmail.com',
         to: `${user.email}`,
         subject: 'Reset Password Link',
-        // text: `http://localhost:3000/reset_password/${user._id}/${encodeURIComponent(token)}`
         html: `
         <!DOCTYPE html>
 <html lang="en">
@@ -199,7 +198,7 @@ const recoverPass = async (req, res) => {
             width: 30%;
                 background-color: #16b187;
                 border: 2px solid #16b187;
-                color: black; 
+                color: #000000; 
                 padding: 16px 32px;
                 text-align: center;
                 text-decoration: none;
@@ -212,6 +211,7 @@ const recoverPass = async (req, res) => {
         }
         .claseBoton:hover{
             background-color: #000000;
+            border: 2px solid #000000;
             color: #ffffff;
         }
         .imag{
@@ -245,7 +245,7 @@ const recoverPass = async (req, res) => {
 
                 <!-- Gracias -->
                 <p>Si no fuiste tu quien solicitó reestabler la contraseña considera de que alguien quiso acceder a tu cuenta.</p>
-                <p style="margin-bottom: 50px;"><i>Atentamente:</i><br>Equipo Pretwor</p>
+                <p style="margin-bottom: 50px;"><i>Atentamente:</i><br>Equipo Librería Middas</p>
 
                 <!-- Botón -->
                 <a class="claseBoton" href=http://localhost:3000/reset_password/${user._id}/${encodeURIComponent(token)}>Reestablecer contraseña</a>
