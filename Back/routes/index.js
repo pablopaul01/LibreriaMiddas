@@ -10,7 +10,7 @@ router.get("/users", getAllUsers);
 router.get("/user/:id", getUserById);
 router.get("/user/collection/:id", getUserByIdPopulate);
 router.post("/login", login);
-router.get('/user/recover', recoverPass);
+router.post('/user/recover', recoverPass);
 router.put('/user/reset/:id/:token', resetPass);
 router.put('/user/favorite/:userId', addFavoriteBook);
 router.put('/user/favorite/remove/:userId', removeFavoriteBook)

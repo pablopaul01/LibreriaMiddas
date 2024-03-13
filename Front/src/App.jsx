@@ -6,6 +6,10 @@ import Navbar from './components/Navbar'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Favorites from './pages/Favorites'
+import RecoverPass from './pages/RecoverPass'
+import ResetPass from './pages/ResetPass'
+import Footer from './components/Footer'
+import Error from './pages/Error'
 
 function App() {
   const [isLogged, setIsLogged] = useState(()=>{
@@ -23,10 +27,13 @@ function App() {
         <Route path='/books' element={isAuthenticated && <Books />} />
         <Route path='/' element={!isAuthenticated &&  <Login setIsLogged={setIsLogged} />} />
         <Route path='/register' element={!isAuthenticated && <Register />} />
-        <Route path='/favorites/' element={isAuthenticated && <Favorites />} />
+        <Route path='/favorites' element={isAuthenticated && <Favorites />} />
+        <Route path='/recover' element={!isAuthenticated && <RecoverPass />} />
+        <Route path='/reset_password/:id/:token' element={!isAuthenticated && <ResetPass />} />
 
-        <Route path='*' element={<h1>Not Found</h1>} />
+        <Route path='*' element={<Error />} />
       </Routes>
+    <Footer />
     </>
   )
 }
