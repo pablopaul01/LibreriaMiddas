@@ -29,7 +29,7 @@ const LoginForm = ({setIsLogged}) => {
             setIsLogged(true)
         } catch (error) {
             console.log(error)
-            toast.error("Ocurroió un problema! Intentelo más tarde.",{position:"top-right"})
+            toast.error(`${error.response.data.mensaje}`,{position:"top-right"})
         } finally {
 
             setLoading(false); 
