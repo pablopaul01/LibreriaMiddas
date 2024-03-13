@@ -24,12 +24,12 @@ function App() {
     <Toaster richColors/>
       <Routes>
 
-        <Route path='/books' element={isAuthenticated && <Books />} />
-        <Route path='/' element={!isAuthenticated &&  <Login setIsLogged={setIsLogged} />} />
-        <Route path='/register' element={!isAuthenticated && <Register />} />
-        <Route path='/favorites' element={isAuthenticated && <Favorites />} />
-        <Route path='/recover' element={!isAuthenticated && <RecoverPass />} />
-        <Route path='/reset_password/:id/:token' element={!isAuthenticated && <ResetPass />} />
+        <Route path='/books' element={isAuthenticated ? <Books /> : <Login setIsLogged={setIsLogged} />} />
+        <Route path='/' element={!isAuthenticated ? <Login setIsLogged={setIsLogged} /> : <Books />} />
+        <Route path='/register' element={!isAuthenticated ? <Register /> : <Books />} />
+        <Route path='/favorites' element={isAuthenticated ? <Favorites /> : <Login setIsLogged={setIsLogged} />} />
+        <Route path='/recover' element={!isAuthenticated ? <RecoverPass /> : <Books />} />
+        <Route path='/reset_password/:id/:token' element={!isAuthenticated ? <ResetPass /> : <Books />} />
 
         <Route path='*' element={<Error />} />
       </Routes>
