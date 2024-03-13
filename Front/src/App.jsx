@@ -8,6 +8,7 @@ import Register from './pages/Register'
 import Favorites from './pages/Favorites'
 import RecoverPass from './pages/RecoverPass'
 import ResetPass from './pages/ResetPass'
+import Footer from './components/Footer'
 
 function App() {
   const [isLogged, setIsLogged] = useState(()=>{
@@ -31,6 +32,7 @@ function App() {
 
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
+    <Footer />
     </>
   )
 }

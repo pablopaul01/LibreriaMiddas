@@ -4,7 +4,7 @@ import ResetForm from '../components/ResetForm'
 
 const ResetPass = () => {
   return (
-    <div className='h-[100vh] bg-slate-100 flex justify-center items-center'>
+    <div className='min-h-[800px] h-[90vh] bg-slate-100 flex justify-center items-center'>
         <CardUser title={"Reestablecer contraseña"} subTitle={"Ingrese una nueva contraseña"}>
             <ResetForm/>
         </CardUser>

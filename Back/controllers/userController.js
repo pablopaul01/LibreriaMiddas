@@ -248,7 +248,7 @@ const recoverPass = async (req, res) => {
                 <p style="margin-bottom: 50px;"><i>Atentamente:</i><br>Equipo Librería Middas</p>
 
                 <!-- Botón -->
-                <a class="claseBoton" href=http://localhost:3000/reset_password/${user._id}/${encodeURIComponent(token)}>Reestablecer contraseña</a>
+                <a class="claseBoton" href=http://localhost:5173/reset_password/${user._id}/${encodeURIComponent(token)}>Reestablecer contraseña</a>
             </div>
             <!-- Contenido principal -->
 
