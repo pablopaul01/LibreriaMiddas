@@ -29,7 +29,6 @@ const FormUpdateBook = ({id,setBooks,book}) => {
     if (Object.values(errors).some(error => error)) {
     return; 
   }
-  console.log("formdatos", formDatos);
     if (formDatos.title === "" && formDatos.autor === "" && formDatos.year === null && formDatos.resume === "" && formDatos.gender === "") {
       toast.error(
         "Debes completar al menos un campo del libro para actualizarlo",

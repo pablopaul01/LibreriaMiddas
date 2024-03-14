@@ -114,7 +114,6 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
     const { email, password } = req.body;
-    console.log("req body", req.body);
     const user = await User.findOne({ email });
     const secret = process.env.JWT_SECRET;
     try {

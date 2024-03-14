@@ -1,15 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import DataTable from 'react-data-table-component';
-import { FaRegHeart } from "react-icons/fa";
-import { GrEdit } from "react-icons/gr";
 import "../css/pagination.css"
-import DeleteButton from './DeleteButton';
-import Modal from './modal/Modal';
-import FormUpdateBook from './FormUpdateBook';
-import { addFavoriteBook, getBooks, getUserById, removeFavoriteBook } from '../helpers/dataBooks';
+import { getUserById, removeFavoriteBook } from '../helpers/dataBooks';
 import { jwtDecode } from 'jwt-decode';
 import { FaHeart } from "react-icons/fa";
-import { axiosInstance } from '../config/axiosInstance';
 import CardBook from './cardBook';
 import { FaCircleInfo } from 'react-icons/fa6';
 import BookContent from './BookContent';

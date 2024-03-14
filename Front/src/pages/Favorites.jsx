@@ -5,7 +5,6 @@ import { jwtDecode } from 'jwt-decode';
 
 const Favorites = () => {
     const [books, setBooks] = useState([])
-    const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
    const decode = jwtDecode(localStorage.getItem("token"))

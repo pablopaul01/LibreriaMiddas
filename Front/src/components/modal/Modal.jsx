@@ -1,11 +1,9 @@
 import React, {useState} from 'react'
-// import './modal.css'
 const Modal = ({ btnText, btnA, id, children}) => {
 
 
   return (
     <>
-      {/* cambiar las className segun la doc de tailwind para estilizar el boton*/}
       {
         btnText ? 
         (
@@ -23,13 +21,9 @@ const Modal = ({ btnText, btnA, id, children}) => {
           }}>{btnA}</div>
         )
       }
-
-
       <dialog id={`modal_${id}`} className='modal border border-black' >
         <div className='modal-box overflow-visible w-auto px-10 bg-white rounded-box bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-80 shadow-2xl'>
-          {/* CONTENT */}
           {children}
-          {/* END CONTENT */}
           <form method='dialog'>
             <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>
               X
